@@ -1,0 +1,11 @@
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\bin\Debug\netcoreapp2.0\Feedscrew Program Editor.deps.json
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\bin\Debug\netcoreapp2.0\Feedscrew Program Editor.runtimeconfig.json
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\bin\Debug\netcoreapp2.0\Feedscrew Program Editor.runtimeconfig.dev.json
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\bin\Debug\netcoreapp2.0\Feedscrew Program Editor.dll
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\bin\Debug\netcoreapp2.0\Feedscrew Program Editor.pdb
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\obj\Debug\netcoreapp2.0\Feedscrew Program Editor.csprojResolveAssemblyReference.cache
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\obj\Debug\netcoreapp2.0\Feedscrew Program Editor.csproj.CoreCompileInputs.cache
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\obj\Debug\netcoreapp2.0\Feedscrew Program Editor.AssemblyInfoInputs.cache
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\obj\Debug\netcoreapp2.0\Feedscrew Program Editor.AssemblyInfo.cs
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\obj\Debug\netcoreapp2.0\Feedscrew Program Editor.dll
+C:\Users\mottl\Documents\Programming Stuff\Feedscrew Prgogram C#\Feedscrew Program Editor\Feedscrew Program Editor\obj\Debug\netcoreapp2.0\Feedscrew Program Editor.pdb

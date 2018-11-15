@@ -1,0 +1,166 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <algorithm>
+#include <windows.h>
+
+
+using namespace std;
+
+int main() {
+
+	string inputfile;
+	ifstream infile;
+	ofstream outfile;
+	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | BACKGROUND_BLUE);
+
+	//User input of file.
+	cout << "Welcome to Dr. L Mott's Feedscrew Program Editor! \n"
+			"For all your program editing needs, simply type in the name of the feedscrew \n"
+			"file without the extension";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
+	cout << " (For example: W12345-1), \n";
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
+	cout <<	"and I will do all the work for you... \n \n"
+			"Name of Feedscrew file without extension: ";
+	getline(cin, inputfile);
+	infile.open(inputfile + ".RNC");
+
+	//Checks for Legit file
+	if (infile.fail()) {
+		cerr << "Error Opening File" << endl;
+		system("PAUSE");
+		exit(1);
+	}
+
+	//Open .ARC file for Rewrite
+	string outputfile = inputfile += ".arc";
+	outfile.open(inputfile.c_str());
+
+	//Reads .RNC file and replaces with new commands in .ARC
+	string line;
+
+
+	while (getline(infile, line))
+	{
+		// Pull one line of data at a time.
+		stringstream linestream(line);
+		string word;
+		string core = inputfile.substr(3, 3);
+		int sizeline = line.length();
+		int pos = line.find(' ');
+		int npos = -1;
+		string g25check;
+		string a100check;
+		string a111check;
+
+		int gcodestatus = 0;
+
+		// Find G25 or G26 and change seperate of while loop
+		if ((pos + 5) < sizeline)
+		{
+			g25check = line.substr(6, 3);
+			a111check = line.substr(6, 4);
+			a100check = line.substr(1, 4);
+		}
+
+		if (g25check == "G25" || g25check == "G26")
+		{
+
+			if (line.find('(') != npos)
+			{
+				line.replace(line.find('('), 1, ";(");
+			}
+
+			if (line.find('X') != npos)
+			{
+				line.replace(line.find('X'), 1, "X1=");
+			}
+
+			if (line.find('Z') != npos)
+			{
+				line.replace(line.find('Z'), 1, "Z1=");
+			}
+			outfile << line;
+			gcodestatus = 1;
+		}
+
+		// Replace @111, @100 code with "If/Go" statement
+		if (a111check == "@111" && line.find('R20') != npos)
+		{
+			outfile << "N99960 IF R20==9990 GOTOF N9990";
+			gcodestatus = 1;
+		}
+
+		if (a100check == "@100" && line.find('K100') != npos)
+		{
+			outfile << ";Replaced @100 code";
+			gcodestatus = 1;
+		}
+
+
+		while (linestream >> word && gcodestatus != 1)
+		{
+			// Dissect each word from the line and change if needed.
+
+			if (word == "M17")
+				outfile << "RET ";
+
+			else if (word == "G59")
+				outfile << "ATRANS ";
+
+			else if (word == "@714")
+				outfile << "STOPRE ";
+
+			else if (word[0] == '(')
+				outfile << ";" << word << " ";
+
+			else if (word == "L101")
+				outfile << "L" << core << "1 ";
+
+			else if (word == "L102")
+				outfile << "L" << core << "2 ";
+
+			else if (word == "%SPF101")
+				outfile << "%_N_L" << core << "1_SPF;$PATH=/_N_SPF_DIR";
+
+			else if (word == "%SPF102")
+				outfile << "%_N_L" << core << "2_SPF;$PATH=/_N_SPF_DIR";
+
+			else if (word[0] == '%' && word[1] == 'M' && word[2] == 'P' && word[3] == 'F')
+				outfile << "%_N_" << word.substr(1, word.length()) << "_MPF";
+
+			else if (word == "S1=R4")
+				outfile << endl << "N99910 S=R4" << endl << "N99911 ";
+
+			else if (word == "N0035")
+				outfile << "N0035 WALIMON" << endl << "N0036 ";
+
+			else if (word == "M30")
+				outfile << endl << "N99940 WALIMOF" << endl << "N99950 M30" << endl;
+
+			else if (word == "L999")
+				outfile << endl << "N99920 " << word << " ";
+
+			else if (word == "M00")
+				outfile << endl << "N99930 " << word << " ";
+
+			else if (word == "R50=0")
+				outfile << endl << "N99950 " << word << " ";
+
+			else outfile << word << " ";
+		}
+
+
+
+
+		outfile << endl;
+	}
+
+	cout << "Success! It's all done." << endl;
+	system("PAUSE");
+	infile.close();
+	outfile.close();
+	return 0;
+}
